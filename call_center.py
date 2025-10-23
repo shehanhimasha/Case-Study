@@ -98,9 +98,9 @@ def simulate_call_center(arrival_rate, service_rate, num_agents, sim_time=1000):
 random.seed(42)  # reproducibility
 
 scenarios = [
-    {"agents": 2, "arrival_rate": 0.8, "service_rate": 1.0},
-    {"agents": 3, "arrival_rate": 0.8, "service_rate": 1.0},
-    {"agents": 5, "arrival_rate": 0.8, "service_rate": 1.0},
+    {"agents": 2, "arrival_rate": 5, "service_rate": 3},
+    {"agents": 3, "arrival_rate": 5, "service_rate": 3},
+    {"agents": 5, "arrival_rate": 5, "service_rate": 3},
 ]
 
 results = []
@@ -118,5 +118,47 @@ for s in scenarios:
     print(f"Utilization: {r['utilization']*100:.1f}%")
     print(f"Throughput: {r['throughput']:.2f} calls/min\n")
 
+# -----------------------------
+# Visualization 1: Queue Length over Time
+# -----------------------------
+plt.figure()
+for r in results:
+    plt.plot(r["time_points"], r["queue_lengths"], label=f"{r['agents']} Agents")
+plt.xlabel("Time (min)")
+plt.ylabel("Queue Length")
+plt.title("Queue Length Over Time")
+plt.legend()
+plt.grid(True)
+plt.show()
+
+
+# -----------------------------
+# Visualization 2: Average Waiting Time Comparison
+# -----------------------------
+plt.figure()
+plt.bar(
+    [r["agents"] for r in results],
+    [r["avg_wait"] for r in results]
+)
+plt.xlabel("Number of Agents")
+plt.ylabel("Average Wait Time (min)")
+plt.title("Average Wait Time vs. Number of Agents")
+plt.grid(True)
+plt.show()
+
+
+# -----------------------------
+# Visualization 3: Agent Utilization Comparison
+# -----------------------------
+plt.figure()
+plt.bar(
+    [r["agents"] for r in results],
+    [r["utilization"] * 100 for r in results]
+)
+plt.xlabel("Number of Agents")
+plt.ylabel("Utilization (%)")
+plt.title("Agent Utilization vs. Number of Agents")
+plt.grid(True)
+plt.show()
 
 
