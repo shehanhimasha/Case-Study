@@ -20,4 +20,9 @@ pip install simpy matplotlib
 Optional for PDF export:
 pip install reportlab
 
+How to Run
 
+Save the file as call_center.py.
+Open a terminal or command prompt in the same folder.
+Run the program:
+python call_center.py
